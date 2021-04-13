@@ -1,0 +1,15 @@
+name: 'Approvals Check'
+description: 'Check the number of approvals a pr has based on a title regex'
+inputs:
+  regex:
+    description: 'title regex'
+    default: '.*H:'
+  num-approvals-required:
+    description: 'Number of approvals required'
+    default: 2
+  token:
+    description: 'github token'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
