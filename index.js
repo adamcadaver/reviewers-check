@@ -19,10 +19,27 @@ const main = async () => {
       repo: github.context.payload.repository.name,
       pull_number: github.context.payload.number
     })
-
-    // Get the JSON webhook payload for the event that triggered the workflow
-    const payload = JSON.stringify(response, undefined, 2)
-    console.log(`The event payload: ${payload}`);
+    const reviews = response.data;
+    let changesRequestedCount = 0;
+    let approvedCount = 0;
+    reviews.forEach((review) => {
+        switch (review.state) {
+            case "APPROVED":
+                approvedCount++;
+                break;
+            case "CHANGES_REQUESTED":
+                changesRequestedCount++;
+                break;
+            default:
+              return;
+        }
+    if (approvedCount <= numApprovalsRequired) {
+      core.setFailed(`This PR requires at least ${numApprovalsRequired} approvals.`);
+    }
+    else if (changesRequestedCount > 0) {
+      core.setFailed("This PR has changes requested.");
+    }
+   });
   } catch (error) {
     core.setFailed(error.message);
   }
