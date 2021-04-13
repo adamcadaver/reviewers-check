@@ -16,6 +16,7 @@ const main = async () => {
       console.log("This PR title does fit the regex")
       return;
     }
+    console.log("to be checked");
     const octokit = github.getOctokit(token);
     const response = await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews', {
       owner: github.context.payload.organization.login,
@@ -37,10 +38,14 @@ const main = async () => {
               return;
         }
     if (approvedCount < numApprovalsRequired) {
-      core.setFailed(`This PR requires at least ${numApprovalsRequired} approvals.`);
+      const msg = `This PR requires at least ${numApprovalsRequired} approvals.`
+      console.log(msg);
+      core.setFailed(msg);
     }
     else if (changesRequestedCount > 0) {
-      core.setFailed("This PR has changes requested.");
+      const msg = "This PR has changes requested.";
+      console.log(msg);
+      core.setFailed(msg);
     }
    });
   } catch (error) {
