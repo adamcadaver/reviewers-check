@@ -37,6 +37,7 @@ const main = async () => {
             default:
               return;
         }
+    console.log(`number of required approvals=${numApprovalsRequired}\nnumber of approvals=${approvedCount}\nchanges requested count=${changesRequestedCount}`)
     if (approvedCount < numApprovalsRequired) {
       const msg = `This PR requires at least ${numApprovalsRequired} approvals.`
       console.log(msg);
