@@ -33,7 +33,7 @@ const main = async () => {
             default:
               return;
         }
-    if (approvedCount <= numApprovalsRequired) {
+    if (approvedCount < numApprovalsRequired) {
       core.setFailed(`This PR requires at least ${numApprovalsRequired} approvals.`);
     }
     else if (changesRequestedCount > 0) {
