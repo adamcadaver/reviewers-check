@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-  const regex = core.getInput('regex');
+  const regex = new RegExp(core.getInput('regex'));
   const numApprovalsRequired = core.getInput('num-approvals-required');
   const token = core.getInput('token');
   const title =
