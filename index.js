@@ -12,7 +12,10 @@ const main = async () => {
       github.context.payload.pull_request.title
     core.info(title)
     const toBeChecked = regex.test(title)
-    if (!toBeChecked) return;
+    if (!toBeChecked) {
+      console.log("This PR title does fit the regex")
+      return;
+    }
     const octokit = github.getOctokit(token);
     const response = await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews', {
       owner: github.context.payload.organization.login,
