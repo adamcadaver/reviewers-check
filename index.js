@@ -24,7 +24,7 @@ const main = async () => {
       pull_number: github.context.payload.number
     })
     const reviews = response.data;
-    core.info(JSON.stringify(reviews, undefined, 2));
+    console.log(JSON.stringify(reviews, undefined, 2));
     let changesRequestedCount = 0;
     let approvedCount = 0;
     reviews.forEach((review) => {
